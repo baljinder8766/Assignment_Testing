@@ -1,0 +1,93 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Baljinder_Singh
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string userSelect = "Y";
+
+            while (userSelect == "Y")
+            {
+                int selectedMenu;
+
+                bool isMenuvalid = false;
+                string userInput = "";
+                do
+                {
+                    Console.WriteLine("\nType 1 for entering the triangle dimensions");
+                    Console.WriteLine("\nType 2 to quit");
+                    Console.WriteLine("\nChoose a value from given menu");
+
+                    userInput = Console.ReadLine();
+                    bool validInput = int.TryParse(userInput, out selectedMenu);
+
+                    switch (selectedMenu)
+                    {
+                        case 1:
+                            isMenuvalid = true;
+
+                            int side1 = valueIntegerValidation("First_side");
+                            int side2 = valueIntegerValidation("Second_side");
+                            int side3 = valueIntegerValidation("Third_side");
+
+                            string output = TriangleSolver.Analyze(side1, side2, side3);
+                            Console.WriteLine(output);
+                            Console.WriteLine("\nDo you still wish to continue : [Y/N]");
+                            userSelect = Console.ReadLine().ToUpper();
+                            break;
+
+                        case 2:
+                            isMenuvalid = true;
+                            Environment.Exit(0);
+                            break;
+
+                        default:
+                            Console.WriteLine("\nPlease type a valid menu option - 1 or 2 \n\n");
+                            break;
+                    }
+                }
+                while (isMenuvalid == false);
+            }
+        }
+
+        public static int valueIntegerValidation(string tri_side)
+        {
+            int side = 0;
+            bool nonInteger = false;
+            bool checkInteger;
+            while (nonInteger == false)
+            {
+                Console.WriteLine("\n\nEnter the {0} of triangle", tri_side);
+                string input = Console.ReadLine();
+                checkInteger = int.TryParse(input, out side);
+
+                if (!checkInteger)
+                {
+                    Console.WriteLine("\n\nDecimal Numbers are not allowed. Only whole numbers are allowed");
+                }
+
+                else if (side <= 0)
+                {
+                    Console.WriteLine("\n\nNegative and zero values are not allowed\n");
+                }
+
+
+                else
+                {
+                    nonInteger = true;
+                }
+
+            }
+
+            return side;
+        }
+
+    }
+}
+
